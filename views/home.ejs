@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Roaster 🔥 - Get Your Site Roasted</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --flame-orange: #ff4500;
+            --flame-red: #ff0844;
+            --flame-yellow: #ffed4e;
+            --deep-purple: #1a0033;
+            --neon-pink: #ff006e;
+            --neon-cyan: #00f5ff;
+            --dark-bg: #0a0015;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 69, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Particle system */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: particleFloat 10s infinite;
+            opacity: 0;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: orbFloat 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: var(--flame-orange);
+            top: -200px;
+            left: -200px;
+        }
+
+        .orb2 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-pink);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -10s;
+        }
+
+        .orb3 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-cyan);
+            top: 50%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .card {
+            background: rgba(10, 0, 30, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 80px rgba(255, 69, 0, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            padding: 50px 45px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: cardEntry 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes cardEntry {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Scan line effect */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 245, 255, 0.8), 
+                transparent);
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .header {
+            margin-bottom: 35px;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 80px;
+            filter: drop-shadow(0 0 30px var(--flame-orange));
+            animation: logoFlicker 3s infinite, logoFloat 4s ease-in-out infinite;
+            display: inline-block;
+            position: relative;
+        }
+
+        @keyframes logoFlicker {
+            0%, 100% {
+                filter: drop-shadow(0 0 30px var(--flame-orange)) 
+                        drop-shadow(0 0 60px var(--flame-red));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px var(--flame-orange)) 
+                        drop-shadow(0 0 80px var(--flame-red));
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .logo-ring {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--neon-cyan);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        @keyframes ringPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.5;
+            }
+        }
+
+        h1 {
+            font-family: 'Righteous', cursive;
+            color: #fff;
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--flame-orange), var(--neon-pink), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShine 3s linear infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes titleShine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            opacity: 0;
+        }
+
+        .feature:hover::before {
+            width: 200px;
+            height: 200px;
+            opacity: 0.1;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            color: var(--neon-cyan);
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .feature:nth-child(1) .feature-icon {
+            animation-delay: 0s;
+        }
+
+        .feature:nth-child(2) .feature-icon {
+            animation-delay: 0.3s;
+        }
+
+        .feature:nth-child(3) .feature-icon {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        form {
+            position: relative;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-cyan);
+            font-size: 18px;
+            z-index: 2;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        input {
+            width: 100%;
+            padding: 20px 20px 20px 55px;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Space Mono', monospace;
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 16px;
+            background: rgba(0, 245, 255, 0.05);
+            color: #fff;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            outline: none;
+            position: relative;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
+        }
+
+        input:focus {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 0 30px rgba(0, 245, 255, 0.3),
+                0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        input:invalid:not(:placeholder-shown) {
+            border-color: var(--flame-red);
+            background: rgba(255, 8, 68, 0.05);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            background: linear-gradient(135deg, var(--flame-orange), var(--neon-pink));
+            color: white;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 
+                0 10px 30px rgba(255, 69, 0, 0.4),
+                0 0 20px rgba(255, 0, 110, 0.3);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(255, 69, 0, 0.6),
+                0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn.loading {
+            background: linear-gradient(135deg, #333, #555);
+            cursor: wait;
+        }
+
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0 0 0;
+            padding: 25px;
+            background: rgba(0, 245, 255, 0.05);
+            border-radius: 16px;
+            border: 1px dashed var(--neon-cyan);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .loading-container.show {
+            display: flex;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spinner-container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .spinner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            animation: spinnerBounce 1.4s infinite ease-in-out both;
+        }
+
+        .spinner-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .spinner-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes spinnerBounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .loading-text {
+            color: var(--neon-cyan);
+            font-family: 'Space Mono', monospace;
+            font-weight: 500;
+            font-size: 14px;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        footer {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer-icon {
+            color: var(--flame-red);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--flame-red));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Error tooltip */
+        .error-tooltip {
+            position: absolute;
+            bottom: 105%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--flame-red), var(--neon-pink));
+            color: white;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 1000;
+            animation: tooltipBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(255, 8, 68, 0.4);
+            white-space: nowrap;
+        }
+
+        .error-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--neon-pink);
+        }
+
+        @keyframes tooltipBounce {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Shake animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .card {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+
+            .logo {
+                font-size: 60px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .feature {
+                padding: 18px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle system -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Glowing orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="main-container">
+        <div class="card" id="mainCard">
+            <div class="header">
+                <div class="logo-container">
+                    <div class="logo-ring"></div>
+                    <div class="logo">🔥</div>
+                </div>
+                <h1>URL Roaster</h1>
+                <p class="subtitle">Enter any website URL and let our AI deliver a brutally honest roast</p>
+            </div>
+
+            <!-- Features showcase -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="feature-text">AI Powered</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-text">Instant</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-fire-flame-curved"></i>
+                    </div>
+                    <div class="feature-text">Brutal</div>
+                </div>
+            </div>
+
+            <form id="roastForm" action="/roast" method="get">
+                <div class="input-group">
+                    <i class="fas fa-globe input-icon"></i>
+                    <input
+                        id="urlInput"
+                        name="url"
+                        type="url"
+                        placeholder="https://example.com"
+                        required
+                        autocomplete="off"
+                    />
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span>
+                        <i class="fas fa-fire"></i>
+                        Roast This Website
+                    </span>
+                </button>
+            </form>
+
+            <div class="loading-container" id="loadingContainer">
+                <div class="spinner-container">
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                    <div class="spinner-dot"></div>
+                </div>
+                <div class="loading-text" id="loadingText">
+                    Analyzing website architecture...
+                </div>
+            </div>
+
+            <footer>
+                <span>Crafted with</span>
+                <i class="fas fa-heart footer-icon"></i>
+                <span>for brutal honesty</span>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        class URLRoaster {
+            constructor() {
+                this.form = document.getElementById("roastForm");
+                this.input = document.getElementById("urlInput");
+                this.submitBtn = document.getElementById("submitBtn");
+                this.loadingContainer = document.getElementById("loadingContainer");
+                this.loadingText = document.getElementById("loadingText");
+                this.mainCard = document.getElementById("mainCard");
+                
+                this.loadingMessages = [
+                    "Analyzing website architecture...",
+                    "Scanning design patterns...",
+                    "Evaluating performance metrics...",
+                    "Preparing brutal feedback...",
+                    "Almost ready to roast... 😈"
+                ];
+                
+                this.init();
+            }
+
+            init() {
+                this.createParticles();
+                this.setupEventListeners();
+            }
+
+            createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 40;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 10 + 's';
+                    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                    
+                    // Random color
+                    const colors = ['var(--neon-cyan)', 'var(--neon-pink)', 'var(--flame-orange)'];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            setupEventListeners() {
+                this.form.addEventListener("submit", (e) => this.handleSubmit(e));
+                this.input.addEventListener("input", () => this.validateInput());
+                
+                // Add keyboard shortcuts
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" && e.ctrlKey) {
+                        this.form.dispatchEvent(new Event("submit"));
+                    }
+                });
+            }
+
+            validateInput() {
+                const value = this.input.value.trim();
+                const isValid = value && this.isValidURL(value);
+                
+                this.submitBtn.disabled = !isValid;
+                
+                return isValid;
+            }
+
+            isValidURL(string) {
+                try {
+                    new URL(string);
+                    return true;
+                } catch (_) {
+                    return false;
+                }
+            }
+
+            handleSubmit(e) {
+                const value = this.input.value.trim();
+
+                if (!value.startsWith("http")) {
+                    e.preventDefault();
+                    this.showError("Please enter a valid URL starting with http:// or https://");
+                    this.shakeCard();
+                    return;
+                }
+
+                // Start loading animation
+                this.startLoading();
+            }
+
+            startLoading() {
+                this.submitBtn.classList.add("loading");
+                this.submitBtn.innerHTML = '<span><i class="fas fa-spinner fa-spin"></i> Processing...</span>';
+                this.loadingContainer.classList.add("show");
+                
+                // Cycle through loading messages
+                let messageIndex = 0;
+                this.loadingInterval = setInterval(() => {
+                    this.loadingText.textContent = this.loadingMessages[messageIndex];
+                    messageIndex = (messageIndex + 1) % this.loadingMessages.length;
+                }, 1000);
+            }
+
+            showError(message) {
+                const inputGroup = this.input.parentElement;
+                
+                // Remove existing error if any
+                const existingError = inputGroup.querySelector('.error-tooltip');
+                if (existingError) {
+                    existingError.remove();
+                }
+                
+                // Create error tooltip
+                const error = document.createElement("div");
+                error.className = "error-tooltip";
+                error.textContent = message;
+                
+                inputGroup.style.position = "relative";
+                inputGroup.appendChild(error);
+                
+                setTimeout(() => error.remove(), 3000);
+            }
+
+            shakeCard() {
+                this.mainCard.classList.add('shake');
+                setTimeout(() => {
+                    this.mainCard.classList.remove('shake');
+                }, 500);
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener("DOMContentLoaded", () => {
+            new URLRoaster();
+        });
+
+        // Add 3D tilt effect on mouse move
+        document.addEventListener("mousemove", (e) => {
+            const card = document.querySelector(".card");
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 30;
+            const rotateY = (centerX - x) / 30;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        document.addEventListener("mouseleave", () => {
+            const card = document.querySelector(".card");
+            card.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
+        });
+
+        // Add click ripple effects
+        document.querySelectorAll('.feature').forEach(feature => {
+            feature.addEventListener('click', function() {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '5px';
+                ripple.style.height = '5px';
+                ripple.style.background = 'var(--neon-cyan)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.top = '50%';
+                ripple.style.left = '50%';
+                ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+                ripple.style.transition = 'transform 0.6s, opacity 0.6s';
+                ripple.style.opacity = '0.5';
+                ripple.style.pointerEvents = 'none';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.style.transform = 'translate(-50%, -50%) scale(30)';
+                    ripple.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+    </script>
+</body>
+</html>

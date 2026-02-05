@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URLRoaster - Get Roasted! 🔥</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --flame-orange: #ff4500;
+            --flame-red: #ff0844;
+            --flame-yellow: #ffed4e;
+            --deep-purple: #1a0033;
+            --neon-pink: #ff006e;
+            --neon-cyan: #00f5ff;
+            --dark-bg: #0a0015;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 69, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 245, 255, 0.1) 0%, transparent 50%);
+            animation: gradientShift 15s ease infinite;
+            z-index: 0;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Particle system */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: particleFloat 10s infinite;
+            opacity: 0;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            animation: orbFloat 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: var(--flame-orange);
+            top: -200px;
+            left: -200px;
+        }
+
+        .orb2 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-pink);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -10s;
+        }
+
+        .orb3 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-cyan);
+            top: 50%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        .container {
+            background: rgba(10, 0, 30, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 80px rgba(255, 69, 0, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            max-width: 900px;
+            width: 100%;
+            padding: 60px 50px;
+            position: relative;
+            z-index: 10;
+            animation: containerEntry 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes containerEntry {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Scan line effect */
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 245, 255, 0.8), 
+                transparent);
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 80px;
+            filter: drop-shadow(0 0 30px var(--flame-orange));
+            animation: logoFlicker 3s infinite, logoFloat 4s ease-in-out infinite;
+            display: inline-block;
+            position: relative;
+        }
+
+        @keyframes logoFlicker {
+            0%, 100% {
+                filter: drop-shadow(0 0 30px var(--flame-orange)) 
+                        drop-shadow(0 0 60px var(--flame-red));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px var(--flame-orange)) 
+                        drop-shadow(0 0 80px var(--flame-red));
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .logo-ring {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--neon-cyan);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        @keyframes ringPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.5;
+            }
+        }
+
+        h1 {
+            font-family: 'Righteous', cursive;
+            color: #fff;
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--flame-orange), var(--neon-pink), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShine 3s linear infinite;
+            background-size: 200% auto;
+            position: relative;
+        }
+
+        @keyframes titleShine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .roast-section {
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 110, 0.2) 0%, 
+                rgba(255, 69, 0, 0.2) 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 69, 0, 0.3);
+            box-shadow: 
+                0 0 50px rgba(255, 69, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            animation: roastPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes roastPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 50px rgba(255, 69, 0, 0.3),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 70px rgba(255, 69, 0, 0.5),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* Animated flames in background */
+        .roast-section::before,
+        .roast-section::after {
+            content: '🔥';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.05;
+            animation: flameRotate 10s linear infinite;
+        }
+
+        .roast-section::before {
+            top: -50px;
+            right: -50px;
+        }
+
+        .roast-section::after {
+            bottom: -50px;
+            left: -50px;
+            animation-direction: reverse;
+            animation-duration: 12s;
+        }
+
+        @keyframes flameRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .roast-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .roast-label {
+            font-family: 'Space Mono', monospace;
+            color: var(--flame-yellow);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--flame-yellow);
+        }
+
+        .severity-indicator {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid currentColor;
+            box-shadow: 0 0 20px currentColor;
+            animation: severityGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes severityGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px currentColor;
+            }
+            50% {
+                box-shadow: 0 0 30px currentColor;
+            }
+        }
+
+        .roast-text {
+            color: #fff;
+            font-size: 28px;
+            line-height: 1.6;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background: var(--neon-cyan);
+            margin-left: 4px;
+            animation: blink 0.7s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .url-display {
+            background: rgba(0, 245, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .url-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 245, 255, 0.1), 
+                transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            100% {
+                left: 100%;
+            }
+        }
+
+        .url-label {
+            color: var(--neon-cyan);
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .url-value {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            word-break: break-all;
+            font-family: 'Space Mono', monospace;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-title {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stats-title::before,
+        .stats-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--neon-pink), 
+                transparent);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            opacity: 0;
+        }
+
+        .stat-card:hover::before {
+            width: 300px;
+            height: 300px;
+            opacity: 0.1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--neon-cyan);
+            box-shadow: 
+                0 20px 40px rgba(0, 245, 255, 0.2),
+                0 0 30px rgba(0, 245, 255, 0.3);
+        }
+
+        .stat-card:active {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .stat-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px currentColor);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .stat-card:nth-child(1) .stat-icon {
+            animation-delay: 0s;
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            animation-delay: 0.5s;
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            animation-delay: 1s;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-family: 'Righteous', cursive;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--flame-orange), var(--neon-pink));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 10px 30px rgba(255, 69, 0, 0.4),
+                0 0 20px rgba(255, 0, 110, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(255, 69, 0, 0.6),
+                0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
+        .action-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .action-btn span {
+            position: relative;
+            z-index: 1;
+        };
+
+        /* Glitch effect for severity */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 0.3s infinite;
+            color: var(--neon-cyan);
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 0.3s infinite;
+            color: var(--neon-pink);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(2px, -2px);
+            }
+            40% {
+                transform: translate(2px, 2px);
+            }
+            60% {
+                transform: translate(-2px, -2px);
+            }
+            80% {
+                transform: translate(-2px, 2px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .roast-text {
+                font-size: 22px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle system -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Glowing orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-ring"></div>
+                <div class="logo">🔥</div>
+            </div>
+            <h1>URLRoaster</h1>
+            <p class="tagline">Maximum Roast Protocol Engaged</p>
+        </div>
+
+        <div class="roast-section">
+            <div class="roast-title">
+                <span class="roast-label">◆ Your Roast</span>
+                <span class="severity-indicator glitch" id="severity" data-text="BRUTAL">BRUTAL</span>
+            </div>
+            <div class="roast-text" id="roast-text">
+                <%= roast %><span class="cursor"></span>
+            </div>
+        </div>
+
+        <div class="url-display">
+            <div class="url-label">► Target Website</div>
+            <div class="url-value" id="url-value"><%= url %></div>
+        </div>
+
+        <div class="stats-title">
+            <span>Diagnostic Report</span>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" data-stat="images">
+                <div class="stat-icon">🖼️</div>
+                <div class="stat-value" id="img-count"><%= img %></div>
+                <div class="stat-label">Images</div>
+            </div>
+
+            <div class="stat-card" data-stat="scripts">
+                <div class="stat-icon">⚙️</div>
+                <div class="stat-value" id="script-count"><%= script %></div>
+                <div class="stat-label">Scripts</div>
+            </div>
+
+            <div class="stat-card" data-stat="h1tags">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value" id="h1-count"><%= h1 %></div>
+                <div class="stat-label">H1 Tags</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <form action="/" method="GET" class="button-container">
+                <button type="submit" class="action-btn">
+                    <span>🔥 Roast Another URL</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Create particle system
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                // Random color
+                const colors = ['var(--neon-cyan)', 'var(--neon-pink)', 'var(--flame-orange)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animate numbers with dynamic easing
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Ease out cubic
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (end - start) * easeProgress);
+                
+                obj.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    obj.textContent = end;
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // Calculate and display severity
+        function calculateSeverity() {
+            const imgCount = parseInt(document.getElementById('img-count').textContent);
+            const scriptCount = parseInt(document.getElementById('script-count').textContent);
+            const h1Count = parseInt(document.getElementById('h1-count').textContent);
+            
+            const totalIssues = (imgCount > 50 ? 1 : 0) + 
+                               (scriptCount > 20 ? 1 : 0) + 
+                               (h1Count !== 1 ? 1 : 0);
+            
+            const severityEl = document.getElementById('severity');
+            let severityText = '';
+            let severityColor = '';
+            
+            if (totalIssues === 0) {
+                severityText = 'MILD';
+                severityColor = '#4caf50';
+            } else if (totalIssues === 1) {
+                severityText = 'MEDIUM';
+                severityColor = '#ffc107';
+            } else if (totalIssues === 2) {
+                severityText = 'SPICY';
+                severityColor = '#ff9800';
+            } else {
+                severityText = 'BRUTAL';
+                severityColor = '#f44336';
+            }
+            
+            severityEl.textContent = severityText;
+            severityEl.setAttribute('data-text', severityText);
+            severityEl.style.color = severityColor;
+        }
+
+        // Enhanced typing effect with variable speed
+        function typeWriter(element, text, speed = 30) {
+            let i = 0;
+            const cursor = element.querySelector('.cursor');
+            element.textContent = '';
+            element.appendChild(cursor);
+            
+            function type() {
+                if (i < text.length) {
+                    const char = text.charAt(i);
+                    const textNode = document.createTextNode(char);
+                    element.insertBefore(textNode, cursor);
+                    i++;
+                    
+                    // Variable speed based on punctuation
+                    let delay = speed;
+                    if (char === '.' || char === '!' || char === '?') {
+                        delay = speed * 10;
+                    } else if (char === ',') {
+                        delay = speed * 3;
+                    }
+                    
+                    setTimeout(type, delay);
+                }
+            }
+            
+            type();
+        }
+
+        // Stat card click effects
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Create ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '5px';
+                ripple.style.height = '5px';
+                ripple.style.background = 'var(--neon-cyan)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.top = '50%';
+                ripple.style.left = '50%';
+                ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+                ripple.style.transition = 'transform 0.6s, opacity 0.6s';
+                ripple.style.opacity = '0.5';
+                ripple.style.pointerEvents = 'none';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.style.transform = 'translate(-50%, -50%) scale(40)';
+                    ripple.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            // Create particles
+            createParticles();
+            
+            // Get the roast text and apply typing effect
+            const roastElement = document.getElementById('roast-text');
+            const roastText = roastElement.textContent.trim();
+            typeWriter(roastElement, roastText, 40);
+            
+            // Get stat values
+            const imgCount = parseInt(document.getElementById('img-count').textContent);
+            const scriptCount = parseInt(document.getElementById('script-count').textContent);
+            const h1Count = parseInt(document.getElementById('h1-count').textContent);
+            
+            // Animate counters after typing
+            setTimeout(() => {
+                animateValue('img-count', 0, imgCount, 1500);
+                animateValue('script-count', 0, scriptCount, 1500);
+                animateValue('h1-count', 0, h1Count, 1500);
+                
+                // Calculate severity after animation
+                setTimeout(calculateSeverity, 1600);
+            }, roastText.length * 40);
+        });
+
+        // Add mousemove parallax effect to container
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const { clientX, clientY } = e;
+            const { innerWidth, innerHeight } = window;
+            
+            const xPos = (clientX / innerWidth - 0.5) * 20;
+            const yPos = (clientY / innerHeight - 0.5) * 20;
+            
+            container.style.transform = `perspective(1000px) rotateY(${xPos}deg) rotateX(${-yPos}deg)`;
+        });
+
+        // Reset container on mouse leave
+        document.addEventListener('mouseleave', () => {
+            const container = document.querySelector('.container');
+            container.style.transform = '';
+        });
+    </script>
+</body>
+</html>
