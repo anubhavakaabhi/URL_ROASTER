@@ -3,8 +3,11 @@ import * as cheerio from 'cheerio';
 import {GoogleGenAI} from '@google/genai';
 import ejs from 'ejs';
 import axios from 'axios';
+import dotenv from "dotenv";
 
-const GEMINI_API_KEY = "AIzaSyDH0UfMsm2KK8suvfld9GI3aH0rwEjjXyQ";
+dotenv.config();
+
+const GEMINI_API_KEY = process.env.API_KEY;
 const ai = new GoogleGenAI({apiKey: GEMINI_API_KEY});
 const app = express();
 const PORT = 3000;
@@ -39,5 +42,5 @@ main();
 }
 });
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running`);
 });
